@@ -1,0 +1,62 @@
+* {
+    margin: 0;
+    padding: 0;
+    }
+
+    header {
+
+        /* position: fixed; */
+        
+        display: flex;
+        background-color: rgb(83, 194, 157);
+        height: 100px;
+         width: 100vw;
+        }
+
+
+        nav {
+
+            display: flex;
+            
+            
+            
+            width: 90vw;
+            
+            justify-content: space-evenly;
+                 align-items: center;
+            
+                 
+            }
+
+            nav a {
+
+                text-decoration: none;
+                
+                color: black;
+                
+                }
+                
+                nav a:hover {
+                
+                color: blue;
+                }
+
+                footer {
+                    /* position: fixed;
+                    bottom: 0ch; */
+                    display: flex;
+                       
+                   width: 100vw;
+                   
+                   height: 100px;
+                   
+                   background-color: rgb(83, 194, 157);
+                   
+                   text-align: center;
+                   
+                   justify-content: center;
+                   
+                   align-items: center;
+                   
+                   }
+                   
