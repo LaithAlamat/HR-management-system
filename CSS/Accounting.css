@@ -41,9 +41,24 @@
                 color: blue;
                 }
 
+
+                #tableSec {
+
+                    position: absolute;
+                    left: 30%;
+                    top: 30%;
+                    
+
+                }
+
+th {
+
+    padding: 20px;
+
+}
                 footer {
-                    /* position: fixed;
-                    bottom: 0ch; */
+                    position: fixed;
+                    bottom: 0ch;
                     display: flex;
                        
                    width: 100vw;
