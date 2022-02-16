@@ -2,237 +2,150 @@ let employee = localStorage.getItem("Employee");
 let parseEmployee = JSON.parse(employee);
 let table = document.getElementById("tableSec");
 
- console.log(parseEmployee);
+const dataArray = (arr, str) => {
+  let marketingEmployeesNumber = 0;
+  let marketingSalaryTotal = 0;
+  let marketingSalaryAverage = 0;
+  let administrationEmployeesNumber = 0;
+  let adiministrationSalaryTotal = 0;
+  let adiministrationSalaryAverage = 0;
+  let financeEmployeesNumber = 0;
+  let financeSalaryTotal = 0;
+  let financeSalaryAverage = 0;
+  let developmentEmployeesNumber = 0;
+  let developmentSalaryTotal = 0;
+  let developmentSalaryAverage = 0;
 
- let data = [];
-
- function Info(ID, Name, Department, Level) {
-    this.ID = ID;
-    this.name = Name;
-    this.department = Department;
-    this.level = Level;
-    this.image = `./assets/${this.name}.jpg`;
-  
-    data.push(this);
+  for (let i = 0; i < arr.length; i++) {
+    switch (arr[i].department) {
+      case "Administration":
+        administrationEmployeesNumber++;
+        adiministrationSalaryTotal += arr[i].salary;
+        adiministrationSalaryAverage =
+          Math.floor(adiministrationSalaryTotal / administrationEmployeesNumber);
+        break;
+      case "Marketing":
+        marketingEmployeesNumber++;
+        marketingSalaryTotal += arr[i].salary;
+        marketingSalaryAverage =
+          Math.floor(marketingSalaryTotal / marketingEmployeesNumber);
+        break;
+      case "Development":
+        developmentEmployeesNumber++;
+        developmentSalaryTotal += arr[i].salary;
+        developmentSalaryAverage =
+          Math.floor(developmentSalaryTotal / developmentEmployeesNumber);
+        break;
+      case "Finance":
+        financeEmployeesNumber++;
+        financeSalaryTotal += arr[i].salary;
+        financeSalaryAverage = Math.floor(financeSalaryTotal / financeEmployeesNumber);
+        break;
+    }
   }
+  switch (str) {
+    case "Administration":
+      return [
+        "Administration",
+        administrationEmployeesNumber,
+        adiministrationSalaryTotal,
+        adiministrationSalaryAverage,
+      ];
 
-   
-    // let administrationSalaryTotal = 0;
+    case "Marketing":
+      return [
+        "Marketing",
+        marketingEmployeesNumber,
+        marketingSalaryTotal,
+        marketingSalaryAverage,
+      ];
 
-    
-    // let marketingSalaryTotal = 0;
+    case "Development":
+      return [
+        "Development",
+        developmentEmployeesNumber,
+        developmentSalaryTotal,
+        developmentSalaryAverage,
+      ];
 
-    
-    // let developmentSalaryTotal = 0;
-    
-    
-    // let financeSalaryTotal = 0;
+    case "Finance":
+      return [
+        "Finance",
+        financeEmployeesNumber,
+        financeSalaryTotal,
+        financeSalaryAverage,
+      ];
+  }
+};
 
- function department (){
-    let administrationNum = 0;
-    let marketingNum = 0;
-    let developmentNum = 0;
-    let financeNum = 0;
-    for(let i = 0; i < parseEmployee.length; i++){
-        if (parseEmployee[i].department == "Administration") {
-            administrationNum++;
-            
-        } else if (parseEmployee[i].department == "Marketing") {
-            marketingNum++;
-            
-        } else if (parseEmployee[i].department == "Development") {
-            developmentNum++;
-            
-        } else if (parseEmployee[i].department == "Finance") {
-            financeNum++;
-            
-    }
-    }
-    return [administrationNum , marketingNum , developmentNum , financeNum];
-}
-    console.log(department());
+function renderHeader() {
+  let tr = document.createElement("tr");
+  table.appendChild(tr);
 
-function sumSalary (){
-    let administrationSalaryTotal = 0;
-    let marketingSalaryTotal = 0;
-    let developmentSalaryTotal = 0;
-    let financeSalaryTotal = 0;
+  let departmentName = document.createElement("th");
+  departmentName.textContent = "Department";
+  tr.appendChild(departmentName);
 
-    for(let i = 0; i < parseEmployee.length; i++){
-        if (parseEmployee[i].department == "Administration") {
-                administrationSalaryTotal = administrationSalaryTotal + parseEmployee[i].salary;
-                
+  let employeeTotal = document.createElement("th");
+  employeeTotal.textContent = "Number of employees";
+  tr.appendChild(employeeTotal);
 
-            } else if (parseEmployee[i].department == "Marketing") {
-                marketingSalaryTotal = marketingSalaryTotal + parseEmployee[i].salary;
+  let salaryTotal = document.createElement("th");
+  salaryTotal.textContent = "Salary";
+  tr.appendChild(salaryTotal);
 
-            } else if (parseEmployee[i].department == "Development") {
-                developmentSalaryTotal += parseEmployee[i].salary;
-
-                
-            } else if (parseEmployee[i].department == "Finance") {
-                financeSalaryTotal += parseEmployee[i].salary;
-            }
-
-        }
-        return [administrationSalaryTotal , marketingSalaryTotal , developmentSalaryTotal , financeSalaryTotal];
-        }
-
-console.log(sumSalary());
-
-
- function avgSalary(){
-        let avg = [];
-        for (let i=0; i<sumSalary().length; i++){
-            // console.log(department()[0]);
-            // console.log(sumSalary()[0]);
-
-        avg.push(sumSalary()[i] / department()[i])  ;
-        }
-
-
-   
-    return avg;
- }
-console.log(avgSalary());
-
-
-
-
-
-
-
-
-
-
-function renderHeader(){
-
-    let tr = document.createElement("tr");
-    table.appendChild(tr);
-
-    let departmentName = document.createElement("th");
-    departmentName.textContent = "Department";
-    tr.appendChild(departmentName);
-
-    let employeeTotal = document.createElement("th");
-    employeeTotal.textContent = "Number of employees";
-    tr.appendChild(employeeTotal);
-
-    let salaryTotal = document.createElement("th");
-    salaryTotal.textContent = "Salary";
-    tr.appendChild(salaryTotal);
-
-    let salaryAvg = document.createElement("th");
-    salaryAvg.textContent = " Average";
-    tr.appendChild(salaryAvg);
+  let salaryAvg = document.createElement("th");
+  salaryAvg.textContent = " Average";
+  tr.appendChild(salaryAvg);
 }
 
+// ["Finance", financeEmployeesNumber, financeSalaryTotal, financeSalaryAverage];
 
-Info.prototype.renderBody = function(){
+function renderData(arr) {
+  let tr = document.createElement("tr");
+  table.appendChild(tr);
 
-    let tr = document.createElement("tr");
-    table.appendChild(tr);
+  let departmentName = document.createElement("td");
+  departmentName.textContent = arr[0];
+  tr.appendChild(departmentName);
 
-    let firstElement = document.createElement("td");
-    firstElement.textContent = this.department
-    tr.appendChild(firstElement)
-    
+  let employeeTotal = document.createElement("td");
+  employeeTotal.textContent = arr[1];
+  tr.appendChild(employeeTotal);
 
-    
+  let salaryTotal = document.createElement("td");
+  salaryTotal.textContent = arr[2];
+  tr.appendChild(salaryTotal);
 
-    let secondElement = document.createElement("td");
-    let departmentNumber;
-    switch (this.department) {
-        case "Administration":
-            departmentNumber = department()[0];
-            break;
-        case "Marketing":
-            departmentNumber = department()[1];
-            break;
-        case "Development":
-            departmentNumber = department()[2];
-            break;
-        case "Finance":
-            departmentNumber = department()[3];
-            break;
-    
-        default:
-            break;
-    }
-    secondElement.textContent = departmentNumber;
-    tr.appendChild(secondElement);
-
-    let thirdElement = document.createElement("td");
-    let totalSalary;
-    switch (this.department) {
-        case "Administration":
-            totalSalary = sumSalary()[0];
-            break;
-        case "Marketing":
-            totalSalary = sumSalary()[1];
-            break;
-        case "Development":
-            totalSalary = sumSalary()[2];
-            break;
-        case "Finance":
-            totalSalary = sumSalary()[3];
-            break;
-    
-        default:
-            break;
-    }
-    thirdElement.textContent = totalSalary;
-    tr.appendChild(thirdElement);
-
-    let fourthElement = document.createElement("td");
-    let salaryAvg;
-    switch (this.department) {
-        case "Administration":
-            salaryAvg = avgSalary()[0];
-            break;
-        case "Marketing":
-            salaryAvg = avgSalary()[1];
-            break;
-        case "Development":
-            salaryAvg = avgSalary()[2];
-            break;
-        case "Finance":
-            salaryAvg = avgSalary()[3];
-            break;
-    
-        default:
-            break;
-    }
-    fourthElement.textContent = salaryAvg;
-    tr.appendChild(fourthElement);
-    
+  let salaryAvg = document.createElement("td");
+  salaryAvg.textContent = arr[3];
+  tr.appendChild(salaryAvg);
 }
 
+let findTotal = (arr1, arr2, arr3, arr4) => {
+  let marketing = dataArray(parseEmployee, "Marketing");
+  let development = dataArray(parseEmployee, "Development");
+  let finance = dataArray(parseEmployee, "Finance");
+  let administration = dataArray(parseEmployee, "Administration");
 
+  return [
+    "Total",
+    marketing[1] + development[1] + finance[1] + administration[1],
+    marketing[2] + development[2] + finance[2] + administration[2],
+    marketing[3] + development[3] + finance[3] + administration[3],
+  ];
+};
 
-let Ghazi = new Info(1000, "Ghazi Samer", "Administration", "Senior");
-let Lana = new Info(1001, "Lana Ali", "Finance", "Senior");
-let Tamara = new Info(1002, "Tamara Ayoub", "Marketing", "Senior");
-let Safi = new Info(1003, "Safi Walid", "Administration", "Mid-Senior");
-let Omar = new Info(1004, "Omar Zaid", "Development", "Senior");
-let Rana = new Info(1005, "Rana Saleh", "Development", "Junior");
-let Hadi = new Info(1006, "Hadi Ahmad", "Finance", "Mid-Senior");
 renderHeader();
-for  (let i = 0 ; i < parseEmployee.length ; i++) {
-
-    
-    id =parseEmployee[i].ID
-    names =parseEmployee[i].name
-    dep =parseEmployee[i].department
-    lvl =parseEmployee[i].level
-   
-
-    let objInst = new Info (id , names , dep , lvl);
-    objInst.renderBody()
-}
-
-console.log(localStorage.getItem("Employee"));
-
-
-
-// hadi.renderBody();
+renderData(dataArray(parseEmployee, "Marketing"));
+renderData(dataArray(parseEmployee, "Development"));
+renderData(dataArray(parseEmployee, "Finance"));
+renderData(dataArray(parseEmployee, "Administration"));
+renderData(
+  findTotal(
+    dataArray(parseEmployee, "Marketing"),
+    dataArray(parseEmployee, "Development"),
+    dataArray(parseEmployee, "Finance"),
+    dataArray(parseEmployee, "Administration")
+  )
+);
