@@ -122,7 +122,7 @@ main div {
 }
 
 
-                .card {
+                .imageLabel {
                     /* Add shadows to create the "card" effect */
                     
                     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -131,27 +131,31 @@ main div {
                     width: 100px;
                   }
 
-                  .card:hover {
+                  .imageLabel:hover {
                     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
                   }
 
 
                   /* Add some padding inside the card container */
-.container {
+.new {
     padding: 2px 16px;
     height: 200px;
+    
   }
 
 
   img {
     border-radius: 5px 5px 0 0;
+    
   }
 
 .employees{
-
+    
 display: flex;
 flex-direction: row;
-flex-wrap: wrap;
+
+
+
 }
 
 .employees img {
@@ -164,6 +168,9 @@ select {
 
     background-color: #a8c3d3;
 }
+
+
+
 
 
 

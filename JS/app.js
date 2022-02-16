@@ -51,16 +51,20 @@ Info.prototype.render = function () {
 
   let img = document.createElement("img");
   img.setAttribute("src", this.image);
-  img.classList.add("images");
+  img.classList.add("imageLabel");
   container.appendChild(img);
 
   let title = document.createElement("h4");
   title.textContent = this.name;
   container.appendChild(title);
-
+  
   let id = document.createElement("h4");
   id.textContent = this.ID;
   container.appendChild(id);
+
+  let department = document.createElement("h4");
+  department.textContent = this.department;
+  container.appendChild(department);
 
   let level = document.createElement("h4");
   level.textContent = this.level;
@@ -77,13 +81,39 @@ Info.prototype.render = function () {
   dataDiv.appendChild(container);
 };
 
+
+function saveEmployee(){
+  let formatedData = JSON.stringify(data);
+  localStorage.setItem("Employee", formatedData);
+}
+
+
+
+function getData(){
+  let employee = localStorage.getItem("Employee");
+  let parseEmployee = JSON.parse(employee);
+  console.log(parseEmployee);
+  
+  if(parseEmployee != null){
+    data = [];
+
+    for(let i = 0; i < parseEmployee.length; i++){
+      console.log(parseEmployee[i]);
+        new Info(parseEmployee[i].ID, parseEmployee[i].name, parseEmployee[i].department, parseEmployee[i].level, parseEmployee[i].image);
+    };
+console.log(data);
+}
+
+}
+
+
 function handleSubmit(event) {
   event.preventDefault();
-  let name = event.target.name.value;
-  let Department = event.target.Department.value;
-  let Level = event.target.Level.value;
+  let name =  event.target.name.value;
+  let Department =  event.target.Department.value;
+  let Level =  event.target.Level.value;
 
-  let id = 1234;
+  let id = Math.floor(1000 + Math.random() * 9000);
 
   let allData = new Info(id, name, Department, Level);
   dataDiv.innerHTML = "";
@@ -92,15 +122,22 @@ function handleSubmit(event) {
     ele.netSalary();
     ele.generateID();
     ele.render();
+    saveEmployee();
+    
   });
   form.reset();
+  
+
 }
 
 form.addEventListener("submit", handleSubmit);
-
+getData();
 data.forEach((ele) => {
   ele.netSalary();
   console.log(ele);
   ele.generateID();
   ele.render();
-});
+  
+
+})
+getData();
